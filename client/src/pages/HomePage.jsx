@@ -1,15 +1,54 @@
-import ThemeSelector from "@/components/ui/ThemeSelector";
-import Users from "../components/user/User";
+import { useState } from "react";
+import useAudio from "@/hooks/useAudio";
+import MusicCard from "@/components/MusicPlayer/MusicCard";
+import { songs } from "@/data/songs";
 
 function HomePage() {
+  const [currentSong, setCurrentSong] = useState(0);
+
+  const {
+    audioRef,
+    isPlaying,
+    togglePlay,
+    setIsPlaying,
+  } = useAudio();
+
+  const nextSong = () => {
+    setCurrentSong(
+      (prev) => (prev + 1) % songs.length
+    );
+  };
+
+  const prevSong = () => {
+    setCurrentSong(
+      (prev) =>
+        (prev - 1 + songs.length) % songs.length
+    );
+  };
+
   return (
     <main className="app-page min-h-screen">
-      {/* Hero */}
       <section className="container mx-auto px-6 py-20">
-        <span className="inline-block mb-4 px-3 py-1 rounded-full glass text-sm">
-          React + Tailwind Starter
-        </span>
-        <Users/>
+
+        <audio
+          ref={audioRef}
+          src={songs[currentSong].audioUrl}
+          onLoadedData={() => {
+            if (isPlaying) {
+              audioRef.current?.play();
+            }
+          }}
+          onEnded={nextSong}
+        />
+
+        <MusicCard
+          song={songs[currentSong]}
+          isPlaying={isPlaying}
+          togglePlay={togglePlay}
+          nextSong={nextSong}
+          prevSong={prevSong}
+        />
+
       </section>
     </main>
   );
