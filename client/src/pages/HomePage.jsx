@@ -8,9 +8,17 @@ function HomePage() {
 
   const {
     audioRef,
+
     isPlaying,
-    togglePlay,
     setIsPlaying,
+
+    currentTime,
+    setCurrentTime,
+
+    duration,
+    setDuration,
+
+    togglePlay,
   } = useAudio();
 
   const nextSong = () => {
@@ -33,6 +41,12 @@ function HomePage() {
         <audio
           ref={audioRef}
           src={songs[currentSong].audioUrl}
+          onLoadedMetadata={(e) =>
+            setDuration(e.target.duration)
+          }
+          onTimeUpdate={(e) =>
+            setCurrentTime(e.target.currentTime)
+          }
           onLoadedData={() => {
             if (isPlaying) {
               audioRef.current?.play();
@@ -43,8 +57,15 @@ function HomePage() {
 
         <MusicCard
           song={songs[currentSong]}
+
+          currentTime={currentTime}
+          duration={duration}
+
+          audioRef={audioRef}
+
           isPlaying={isPlaying}
           togglePlay={togglePlay}
+
           nextSong={nextSong}
           prevSong={prevSong}
         />

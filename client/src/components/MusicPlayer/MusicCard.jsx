@@ -3,11 +3,19 @@ import Controls from "./Controls";
 import SongInfo from "./SongInfo";
 import ProgressBar from "./ProgressBar";
 
-export default function MusicCard({   song,
+export default function MusicCard({
+  song,
+
+  currentTime,
+  duration,
+  audioRef,
+
+  isPlaying,
+  togglePlay,
+
   nextSong,
   prevSong,
-  isPlaying,
-  togglePlay, }) {
+}) {
   return (
     <section className="app-page min-h-screen flex items-center justify-center">
       <div className="relative w-[320px] h-[240px]">
@@ -37,7 +45,11 @@ export default function MusicCard({   song,
             <SongInfo title={song.title} artist={song.artist} />
 
             <div className="mt-4">
-              <ProgressBar duration={song.duration} />
+              <ProgressBar
+                currentTime={currentTime}
+                duration={duration}
+                audioRef={audioRef}
+              />
             </div>
           </div>
         </div>

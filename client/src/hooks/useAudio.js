@@ -5,13 +5,21 @@ export default function useAudio() {
 
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const play = () => {
-    audioRef.current.play();
-    setIsPlaying(true);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const [duration, setDuration] = useState(0);
+
+  const play = async () => {
+    try {
+      await audioRef.current?.play();
+      setIsPlaying(true);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const pause = () => {
-    audioRef.current.pause();
+    audioRef.current?.pause();
     setIsPlaying(false);
   };
 
@@ -21,8 +29,16 @@ export default function useAudio() {
 
   return {
     audioRef,
+
     isPlaying,
-    togglePlay,
     setIsPlaying,
+
+    currentTime,
+    setCurrentTime,
+
+    duration,
+    setDuration,
+
+    togglePlay,
   };
 }
