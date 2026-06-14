@@ -8,6 +8,9 @@ export default function useAudio() {
   const [currentTime, setCurrentTime] = useState(0);
 
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+
+  const [isMuted, setIsMuted] = useState(false);
 
   const play = async () => {
     try {
@@ -38,6 +41,12 @@ export default function useAudio() {
 
     duration,
     setDuration,
+
+    volume,
+    setVolume,
+
+    isMuted,
+    setIsMuted,
 
     togglePlay,
   };

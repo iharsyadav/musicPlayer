@@ -1,16 +1,19 @@
 import express from "express";
 import cors from "cors";
-import userRoutes from "./routes/userRoutes.js";
+import songRoutes from "./routes/song.routes.js";
+
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+
 app.get("/", (req, res) => {
-  res.send("API Running...");
+  res.send("Music API Running...");
 });
 
-app.use("/api/users", userRoutes);
+app.use("/api/songs", songRoutes);
+
 
 export default app;

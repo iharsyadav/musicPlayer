@@ -4,6 +4,7 @@ import RootLayout from "./layouts/RootLayout";
 import Home from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import TestPage from "../pages/Test";
+import SongUploadForm from "../components/Song/SongUploadForm";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <TestPage />,
+      },
+      {
+        path: "/upload",
+        element: <SongUploadForm />,
       },
     ],
   },
